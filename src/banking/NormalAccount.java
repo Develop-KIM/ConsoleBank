@@ -11,8 +11,4 @@ public class NormalAccount extends Account {
 		return getBalance() * (getInterestRate() / 100);
 	}
 
-	@Override
-	public String toString() {
-		return super.toString();
-	}
 }
