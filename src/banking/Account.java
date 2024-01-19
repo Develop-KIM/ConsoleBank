@@ -3,10 +3,10 @@ package banking;
 import java.util.Objects;
 
 public abstract class Account {
-    private String accNumber; // 계좌번호
-    private String accName; // 계좌주
-    private int balance; // 잔액
-    private double interestRate; // 이자율
+    private String accNumber; 
+    private String accName;
+    private int balance;
+    private double interestRate;
 
     public Account(String accNumber, String accName, int balance, double interestRate) {
         this.accNumber = accNumber;
@@ -39,8 +39,10 @@ public abstract class Account {
     
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) 
+        	return true;
+        if (obj == null || getClass() != obj.getClass())
+        	return false;
         Account account = (Account) obj;
         return accNumber.equals(account.accNumber);
     }
