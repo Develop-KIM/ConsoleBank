@@ -1,5 +1,7 @@
 package banking;
 
+import java.util.Objects;
+
 public abstract class Account {
     private String accNumber; // 계좌번호
     private String accName; // 계좌주
@@ -34,6 +36,19 @@ public abstract class Account {
     }
 
     public abstract double calculateInterest();
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Account account = (Account) obj;
+        return accNumber.equals(account.accNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accNumber);
+    }
     
     @Override
     public String toString() {

@@ -1,14 +1,14 @@
 package banking;
 
+import java.util.HashSet;
+
 public class AccountManager {
-	private Account[] accountArray;
-	private int numOfAccount;
+	private HashSet<Account> accountSet;
 	private UserInput userInput;
 	private AccountCreate accountCreate;
 	    
 	public AccountManager(int size) {
-		accountArray = new Account[size];
-		numOfAccount = 0;
+		accountSet = new HashSet<>();
 		userInput = new UserInput();
 		accountCreate = new AccountCreate();
 	}
@@ -34,13 +34,28 @@ public class AccountManager {
             System.out.print("신용등급(A, B, C등급): ");
             creditGrade = userInput.getString();
         }
-        accountArray[numOfAccount++] = accountCreate.createAccount(choice, accNumber, accName, balance, interestRate, creditGrade);
-        System.out.println("계좌계설이 완료되었습니다.");
+        
+        Account newAccount = accountCreate.createAccount(choice, accNumber, accName, balance, interestRate, creditGrade);
+        
+        if (accountSet.contains(newAccount)) {
+            System.out.println("중복계좌발견됨. 덮어쓸까요?(YES or NO)");
+            String response = userInput.getString();
+            if (response.equalsIgnoreCase("YES")) {
+                accountSet.remove(newAccount);
+                accountSet.add(newAccount);
+                System.out.println("계좌 정보를 덮어썼습니다.");
+            } else {
+                System.out.println("기존 계좌 정보를 유지합니다.");
+            }
+        } else {
+            accountSet.add(newAccount);
+            System.out.println("계좌계설이 완료되었습니다.");
+        }
     }
 
-    private Account findAccount(String accNumber) {
-        for (Account account : accountArray) {
-            if (account != null && account.getAccNumber().equals(accNumber)) {
+    public Account findAccount(String accNumber) {
+        for (Account account : accountSet) {
+            if (account.getAccNumber().equals(accNumber)) {
                 return account;
             }
         }
@@ -127,10 +142,23 @@ public class AccountManager {
 
 
     public void showAccInfo() {
-        for (int i = 0; i < numOfAccount; i++) {
-            System.out.println(accountArray[i].toString());
+        for (Account account : accountSet) {
+            System.out.println(account.toString());
             System.out.println("-------------");
         }
         System.out.println("전체계좌정보 출력이 완료되었습니다.");
+    }
+    
+    public void showAccDel() {
+        System.out.println("-----계좌삭제------");
+        System.out.print("삭제할 계좌번호: ");
+        String accNumber = userInput.getString();
+        Account account = findAccount(accNumber);
+        if (account != null) {
+            accountSet.remove(account);
+            System.out.println("계좌가 삭제되었습니다.");
+        } else {
+            System.out.println("해당 계좌번호가 없습니다.");
+        }
     }
 }
