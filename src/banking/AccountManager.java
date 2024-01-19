@@ -1,7 +1,5 @@
 package banking;
 
-import java.util.InputMismatchException;
-
 public class AccountManager {
 	private Account[] accountArray;
 	private int numOfAccount;
@@ -31,12 +29,12 @@ public class AccountManager {
         System.out.print("기본이자%(정수형태로입력): ");
         double interestRate = userInput.getDouble();
         
-        String creditRating = null;
+        String creditGrade = null;
         if (choice == 2) {
             System.out.print("신용등급(A, B, C등급): ");
-            creditRating = userInput.getString();
+            creditGrade = userInput.getString();
         }
-        accountArray[numOfAccount++] = accountCreate.createAccount(choice, accNumber, accName, balance, interestRate, creditRating);
+        accountArray[numOfAccount++] = accountCreate.createAccount(choice, accNumber, accName, balance, interestRate, creditGrade);
         System.out.println("계좌계설이 완료되었습니다.");
     }
 

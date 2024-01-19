@@ -1,15 +1,15 @@
 package banking;
 
 public class HighCreditAccount extends Account implements ICustomDefine {
-    private String creditRating;
+    private String creditGrade;
 
-    public HighCreditAccount(String accNumber, String accName, int balance, double interestRate, String creditRating) {
+    public HighCreditAccount(String accNumber, String accName, int balance, double interestRate, String creditGrade) {
         super(accNumber, accName, balance, interestRate);
-        this.creditRating = creditRating;
+        this.creditGrade = creditGrade;
     }
 
     private double calculateAdditionalInterestRate() {
-        switch (creditRating) {
+        switch (creditGrade) {
             case "A":
                 return CREDIT_GRADE_A;
             case "B":
@@ -31,6 +31,6 @@ public class HighCreditAccount extends Account implements ICustomDefine {
     @Override
     public String toString() {
         return super.toString() +
-                "신용등급> " + creditRating + "\n";
+                "신용등급> " + creditGrade + "\n";
     }
 }
