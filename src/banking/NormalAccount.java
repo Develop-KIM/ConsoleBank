@@ -1,6 +1,6 @@
 package banking;
 
-public class NormalAccount extends Account {
+public class NormalAccount extends Account implements ICustomDefine {
 
 	public NormalAccount(String accNumber, String accName, int balance, double interestRate) {
         super(accNumber, accName, balance, interestRate);

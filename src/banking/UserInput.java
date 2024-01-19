@@ -1,5 +1,6 @@
 package banking;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInput {
@@ -11,7 +12,14 @@ public class UserInput {
     }
 
     public int getInt() {
-        return input.nextInt();
+    	while (true) {
+            try {
+                return input.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("숫자를 입력하세요.");
+                input.nextLine();
+            }
+        }
     }
 
     public String getString() {
@@ -20,5 +28,9 @@ public class UserInput {
 
     public double getDouble() {
         return input.nextDouble();
+    }
+    
+    public String getNextLine() {
+    	return input.nextLine();
     }
 }

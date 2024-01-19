@@ -1,6 +1,6 @@
 package banking;
 
-public class HighCreditAccount extends Account {
+public class HighCreditAccount extends Account implements ICustomDefine {
     private String creditRating;
 
     public HighCreditAccount(String accNumber, String accName, int balance, double interestRate, String creditRating) {
@@ -11,11 +11,11 @@ public class HighCreditAccount extends Account {
     private double calculateAdditionalInterestRate() {
         switch (creditRating) {
             case "A":
-                return 0.07;
+                return CREDIT_GRADE_A;
             case "B":
-                return 0.04;
+                return CREDIT_GRADE_B;
             case "C":
-                return 0.02;
+                return CREDIT_GRADE_C;
             default:
                 return 0;
         }

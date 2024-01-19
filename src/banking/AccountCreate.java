@@ -9,6 +9,7 @@ public class AccountCreate {
             case 2:
                 return new HighCreditAccount(accNumber, accName, balance, interestRate, creditRating);
             default:
+            	System.out.println("올바른 계좌 종류를 선택하세요.");
                 return null;
         }
     }
