@@ -14,12 +14,24 @@ public class AccountManager {
 	}
 	
     public void makeAccount() {
-        System.out.println("***신규계좌개설***");
-        System.out.println("-----계좌선택------");
-        System.out.println("1. 보통계좌");
-        System.out.println("2. 신용신뢰계좌");
-        System.out.print("선택: ");
-        int choice = userInput.getInt();
+        int choice = 0;
+        boolean menuSelect = false;
+        
+        while (!menuSelect) {
+            System.out.println("***신규계좌개설***");
+            System.out.println("-----계좌선택------");
+            System.out.println("1. 보통계좌");
+            System.out.println("2. 신용신뢰계좌");
+            System.out.print("선택: ");
+            choice = userInput.getInt();
+
+            if (choice == 1 || choice == 2) {
+            	menuSelect = true;
+            } else {
+                System.out.println("올바른 계좌 종류를 선택하세요.");
+            }
+        }
+        
         System.out.print("계좌번호: ");
         String accNumber = userInput.getString();
         System.out.print("고객이름: ");

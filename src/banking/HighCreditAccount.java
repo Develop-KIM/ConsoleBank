@@ -30,7 +30,6 @@ public class HighCreditAccount extends Account implements ICustomDefine {
     
     @Override
     public String toString() {
-        return super.toString() +
-                "신용등급> " + creditGrade + "\n";
+        return super.toString() + "신용등급> " + creditGrade + "\n";
     }
 }
