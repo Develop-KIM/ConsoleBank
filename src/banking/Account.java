@@ -54,7 +54,7 @@ public abstract class Account {
     
     @Override
     public String toString() {
-        return "계좌번호> " + accNumber + "\n" +
+        return "계좌번호 > " + accNumber + "\n" +
                 "고객이름> " + accName + "\n" +
                 "잔고> " + balance + "\n" +
                 "기본이자> " + (int) interestRate + "%\n";
