@@ -22,6 +22,30 @@ public class UserInput {
 		}
 	}
 
+	public int withdrawInt() {
+		while (true) {
+			try {
+				return input.nextInt();
+			} catch (InputMismatchException e) {
+				System.out.println("숫자를 입력하세요.");
+				System.out.println("출금액: ");
+				input.nextLine();
+			}
+		}
+	}
+
+	public int depositInt() {
+		while (true) {
+			try {
+				return input.nextInt();
+			} catch (InputMismatchException e) {
+				System.out.println("숫자를 입력하세요.");
+				System.out.println("입금액: ");
+				input.nextLine();
+			}
+		}
+	}
+
 	public String getString() {
 		return input.next();
 	}
