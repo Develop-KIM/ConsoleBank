@@ -32,7 +32,7 @@ public class BankSystemImpl {
 
 	private void handleMenuSelection(MenuOption option) {
 		if (option == null) {
-			System.out.println("올바른 메뉴를 입력하세요.");
+			System.out.println("올바른 메뉴를 입력하세요....");
 			return;
 		}
 

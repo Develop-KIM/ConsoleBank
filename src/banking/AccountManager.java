@@ -186,7 +186,7 @@ public class AccountManager {
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
 			accountSet = (HashSet<Account>) in.readObject();
 		} catch (Exception e) {
-			System.out.println("계정 데이터를 불러올 수 없습니다.");
+			System.out.println("계정 데이터를 불러올 수 없습니다!!!.");
 		}
 	}
 
