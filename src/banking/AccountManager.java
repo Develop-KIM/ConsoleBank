@@ -93,7 +93,7 @@ public class AccountManager {
 		int depositMoney = 0;
 		while (true) {
 			System.out.print("입금액: ");
-			depositMoney = userInput.depositInt();
+			depositMoney = userInput.getInt();
 
 			if (depositMoney < 0) {
 				System.out.println("입금액은 음수일 수 없습니다. 다시 입력해주세요.");
@@ -126,7 +126,8 @@ public class AccountManager {
 		int withdrawMoney = 0;
 		while (true) {
 			System.out.print("출금액: ");
-			withdrawMoney = userInput.withdrawInt();
+
+			withdrawMoney = userInput.getInt();
 
 			if (withdrawMoney < 0) {
 				System.out.println("출금액은 음수일 수 없습니다. 다시 입력해주세요.");
@@ -165,7 +166,7 @@ public class AccountManager {
 			System.out.println(account.toString());
 			System.out.println("-------------");
 		}
-		System.out.println("전체계좌정보 출력이 완료되었습니다.");
+		System.out.println("전체계좌정보 출력이 완료되었습니다");
 	}
 
 	public void showAccDel() {
