@@ -25,7 +25,7 @@ public abstract class Account implements Serializable {
 	}
 
 	public void depositMoney(int amount) {
-		int interest = (int) (balance * (interestRate / 100.0));
+		int interest = (int) (balance * (interestRate / 100));
 		balance += (amount + interest);
 	}
 
@@ -80,6 +80,6 @@ public abstract class Account implements Serializable {
 	@Override
 	public String toString() {
 		return "계좌번호> " + accNumber + ", " + "고객이름> " + accName + ", " + "잔고> " + balance + ", " + "기본이자> "
-				+ (int) interestRate + "%";
+				+ (int) interestRate + "% ";
 	}
 }

@@ -15,7 +15,7 @@ import service.AccountService;
  */
 public class UserInterface {
 
-	Scanner scanner = new Scanner(System.in);
+	public static Scanner scanner = new Scanner(System.in);
 	private AccountService accountService;
 	private AutoSaver autoSaver;
 
@@ -28,12 +28,15 @@ public class UserInterface {
 
 	/**
 	 * 메뉴를 실행하고 사용자의 선택에 따른 기능을 수행
+	 * 
+	 * @throws InitException
 	 */
 	public void run() {
 		while (true) {
 			try {
 				showMenu();
 				int choice = scanner.nextInt();
+				// 사용자가 입력이 메뉴의 범위를 벗어나면 예외를 발생
 				if (1 > choice || choice > 7) {
 					throw new InitException("1~7 사이의 숫자를 입력해주세요.");
 				}
@@ -97,6 +100,7 @@ public class UserInterface {
 		int choice = scanner.nextInt();
 		switch (choice) {
 		case 1:
+			// 만약 이미 자동 저장 스레드가 실행중이라면 메시지를 출력
 			if (autoSaver != null && autoSaver.isAlive()) {
 				System.out.println("이미 자동저장이 실행중입니다");
 			} else {
@@ -105,6 +109,7 @@ public class UserInterface {
 			}
 			break;
 		case 2:
+			// 만약 자동 저장 스레드가 있다면 중단
 			if (autoSaver != null) {
 				autoSaver.interrupt();
 				autoSaver = null;
@@ -144,7 +149,8 @@ public class UserInterface {
 		while (true) {
 			System.out.print("계좌번호: ");
 			accountNumber = scanner.next();
-			// 문자열이 0 부터 9까지의 숫자와 하이픈(-)으로 이루어져야함
+			// [0-9-] (정규 표현식) : 문자열이 0부터 9 사이의 숫자 또는 '-' 문자를 입력해야함
+			// + : 앞의 문자 하나이상 반복되는 패턴을 나타냄
 			if (accountNumber.matches("[0-9-]+")) {
 				break;
 			}
@@ -238,7 +244,6 @@ public class UserInterface {
 					String decision = scanner.next();
 					if (decision.equals("YES")) {
 						accountService.withdrawAllMoney(accNumber);
-						System.out.println("전체 금액이 출금되었습니다.");
 						return;
 					} else if (decision.equals("NO")) {
 						System.out.println("출금 요청이 취소되었습니다.");

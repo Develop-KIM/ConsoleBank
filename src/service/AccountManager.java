@@ -23,7 +23,7 @@ public class AccountManager implements AccountService {
 	private static final int MAX_ACCOUNTS = 50;
 	private static final String FILE_PATH = "src/AccountInfo.obj";
 	private Set<Account> accountSet = new HashSet<>();
-	Scanner scanner = new Scanner(System.in);
+	public static Scanner scanner = new Scanner(System.in);
 
 	public AccountManager() {
 		loadAccountData();
@@ -85,16 +85,19 @@ public class AccountManager implements AccountService {
 	 * @return "y"를 작성하면 true, "n"를 작성하면 false를 반환
 	 */
 	private boolean handleDuplicateAccount(Account account) {
+		// accountSet에 이미 동일한 계좌(account)가 있는지 검사
 		if (accountSet.contains(account)) {
 			String input;
 			while (true) {
 				System.out.println("중복된 계좌가 발견되었습니다. 덮어쓸까요? (y or n)");
 				input = scanner.next();
+				// 입력이 'y'라면 기존 계좌를 삭제하고 새 계좌를 추가
 				if (input.equals("y")) {
 					accountSet.remove(account);
 					accountSet.add(account);
 					System.out.println("계좌 정보가 덮어쓰기 되었습니다.");
 					return true;
+					// 입력이 'n'이라면, 기존 계좌를 유지하고 false를 반환
 				} else if (input.equals("n")) {
 					System.out.println("기존 정보를 유지합니다.");
 					return false;
@@ -102,6 +105,7 @@ public class AccountManager implements AccountService {
 					System.out.println("y 또는 n을 입력해주세요.");
 				}
 			}
+			// 중복된 계좌가 없다면 바로 새 계좌를 추가하고 true를 반환
 		} else {
 			accountSet.add(account);
 			return true;
@@ -115,6 +119,7 @@ public class AccountManager implements AccountService {
 	 */
 	private Account findAccountByNumber(String accountNumber) {
 		for (Account account : accountSet) {
+			// 계좌가 null이 아니고 계좌 번호가 입력받은 계좌 번호와 일치하면 해당 계좌를 반환
 			if (account != null && account.getAccNumber().equals(accountNumber)) {
 				return account;
 			}
@@ -192,6 +197,9 @@ public class AccountManager implements AccountService {
 	 */
 	@Override
 	public Account[] getAllAccounts() {
+		// accountSet에 저장된 모든 계좌 정보를 배열로 변환하여 반환
+		// new Account[0]은 크기가 0인 Account 타입의 배열을 생성
+		// 배열에 accountSet의 모든 요소를 복사하여 반환
 		return accountSet.toArray(new Account[0]);
 	}
 
@@ -213,6 +221,8 @@ public class AccountManager implements AccountService {
 	 */
 	private void loadAccountData() {
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(FILE_PATH))) {
+			// HashSet<Account> 타입으로 캐스팅하여 accountSet에 저장
+			// 반환값이 Objectd이기 때문에 반드시 캐스팅을 해야함
 			accountSet = (HashSet<Account>) in.readObject();
 		} catch (FileNotFoundException e) {
 		} catch (IOException | ClassNotFoundException e) {
@@ -225,6 +235,7 @@ public class AccountManager implements AccountService {
 	 */
 	public void saveAccountData() {
 		try (ObjectOutputStream in = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
+			// ObjectOutputStream의 writeObject 메소드를 사용하면 객체를 직렬화하여 파일에 저장
 			in.writeObject(accountSet);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -238,7 +249,9 @@ public class AccountManager implements AccountService {
 	 */
 	public void saveAccountData(String filePath) {
 		try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+			// accountSet에 저장된 모든 계좌 정보를 순회
 			for (Account account : accountSet) {
+				// 각 계좌의 정보를 문자열로 변환하여 파일에 씀
 				writer.println(account.toString());
 			}
 		} catch (IOException e) {
